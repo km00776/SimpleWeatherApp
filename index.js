@@ -3,7 +3,8 @@
  */
 
 import {AppRegistry} from 'react-native';
-import App from './App';
+import {Home} from './project/features/home/home';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => App);
+// potential wrapperå
+AppRegistry.registerComponent(appName, () => Home);
