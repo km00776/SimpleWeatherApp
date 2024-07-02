@@ -15,8 +15,14 @@ export const POPPINS_SEMI_BOLD = Platform.select({
   android: 'Poppins-SemiBold',
 });
 
+export const POPPINS_MEDIUM = Platform.select({
+  ios: 'Poppins-Medium',
+  android: 'Poppins-Medium',
+});
+
 export const Fonts = {
   regular: POPPINS_REGULAR,
   bold: POPPINS_BOLD,
   semi_bold: POPPINS_SEMI_BOLD,
+  medium: POPPINS_MEDIUM,
 };
