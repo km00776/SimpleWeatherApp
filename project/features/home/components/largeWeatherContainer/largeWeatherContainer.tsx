@@ -3,6 +3,7 @@ import {View, StyleSheet, Text} from 'react-native';
 import ArrowIcon from '../../../../svgs/arrowIcon';
 import {Fonts} from '../../../../styles/Fonts';
 import {Colors} from '../../../../styles/Colors';
+import {Size} from '../../../../styles/FontSize';
 
 export const LargeWeatherContainer: React.FC = () => {
   return (
@@ -32,11 +33,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '6%',
+    marginTop: '5%',
   },
   date: {
     fontFamily: Fonts.medium,
-    fontSize: 20,
+    fontSize: Size.MD,
     color: Colors.rainyTxt,
   },
 });
