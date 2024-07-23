@@ -7,7 +7,7 @@ interface ArrowIconProps {
 
 const ArrowIcon: React.FC<ArrowIconProps> = ({color = '#C9E8E0'}) => {
   return (
-    <Svg width={16} height={10} viewBox="0 0 16 10" fill="none">
+    <Svg width={16} height={9} viewBox="0 0 16 9" fill="none">
       <Rect
         x={16}
         y={1.70747}

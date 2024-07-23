@@ -10,7 +10,9 @@ export const LargeWeatherContainer: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.date}>Today</Text>
-        {/* <ArrowIcon /> */}
+        <View style={styles.iconContainer}>
+          <ArrowIcon />
+        </View>
       </View>
 
       <Text />
@@ -24,7 +26,7 @@ export const LargeWeatherContainer: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: '65%',
+    height: '43.3%',
     width: '85%',
     backgroundColor: Colors.rainy,
     borderRadius: 35,
@@ -35,9 +37,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '5%',
   },
+  iconContainer: {
+    marginTop: '1%',
+  },
   date: {
     fontFamily: Fonts.medium,
     fontSize: Size.MD,
     color: Colors.rainyTxt,
+    marginRight: '3.5%',
   },
 });
