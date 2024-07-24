@@ -11,7 +11,7 @@ const moderateScale = (size: number, factor = 0.5) =>
   size + (scale(size) - size) * factor;
 
 const Size = {
-  XLRG: moderateScale(96),
+  XLRG: moderateScale(85), // 96 in design
   LRG: moderateScale(25),
   MD: moderateScale(20),
   SM: moderateScale(15),

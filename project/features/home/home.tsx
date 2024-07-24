@@ -3,9 +3,9 @@ import {ImageBackground} from 'react-native';
 import {LargeWeatherContainer} from './components/largeWeatherContainer/largeWeatherContainer';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import SmallWeatherContainer from './components/smallWeatherContainer/smallWeatherContainer';
-import { Fonts } from '../../styles/Fonts';
-import { Size } from '../../styles/FontSize';
-import { Colors } from '../../styles/Colors';
+import {Fonts} from '../../styles/Fonts';
+import {Size} from '../../styles/FontSize';
+import {Colors} from '../../styles/Colors';
 
 const BACKGROUND_IMG = require('/Users/macbook/Desktop/SimpleWeatherApp/project/assets/rain_background.png');
 
