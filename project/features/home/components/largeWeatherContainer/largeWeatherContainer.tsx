@@ -12,9 +12,7 @@ export const LargeWeatherContainer: React.FC = () => {
     <View style={styles.container}>
       <View style={styles.row}>
         <Text style={styles.date}>Today</Text>
-        <View style={styles.iconContainer}>
-          <ArrowIcon />
-        </View>
+        <ArrowIcon />
       </View>
       <View style={styles.weatherContainer}>
         <View style={styles.row2}>
@@ -47,6 +45,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     marginTop: '5%',
   },
 
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   iconContainer: {
-    marginTop: '1%',
+    // marginTop: '1%',
   },
   date: {
     fontFamily: Fonts.medium,
@@ -91,8 +90,8 @@ const styles = StyleSheet.create({
   },
   column: {
     alignItems: 'center',
-    justifyContent: 'space-around',
-    height: '35%',
+    height: '30%',
+    justifyContent: 'space-between',
   },
   locationText: {
     fontFamily: Fonts.medium,

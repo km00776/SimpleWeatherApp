@@ -12,13 +12,7 @@ const SmallWeatherContainer = () => {
       <BlurView style={styles.absolute} blurType="light" blurAmount={12}>
         <RadialGradientBackground />
       </BlurView>
-      <View
-        style={{
-          marginVertical: '4%',
-          width: '100%',
-          justifyContent: 'center',
-          alignSelf: 'center',
-        }}>
+      <View style={styles.content}>
         <View style={styles.weatherContainer}>
           <WeatherContentContainer />
           <WeatherContentContainer />
@@ -48,6 +42,13 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     overflow: 'hidden',
   },
+  content: {
+    marginVertical: '4%',
+    width: '80%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    padding: '2%',
+  },
   weatherContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -62,9 +63,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   lineBreak: {
-    width: '100%', // Adjust the width as needed
+    width: '98%', // Adjust the width as needed
     height: '0.4%',
-    marginVertical: '7%',
+    marginVertical: '5%',
     backgroundColor: Colors.white,
     justifyContent: 'center',
   },

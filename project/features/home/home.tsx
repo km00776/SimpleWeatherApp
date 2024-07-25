@@ -18,14 +18,6 @@ export const Home: React.FC = () => {
       <SafeAreaView style={styles.container}>
         <LargeWeatherContainer />
         <SmallWeatherContainer />
-        {/* <View style={styles.textContainer}>
-          <Text style={styles.title}>Random Text</Text>
-          <Text style={styles.description}>
-            Improve him believe opinion offered met and end cheered forbade.
-            Friendly as stronger speedily by recurred. Son interest wandered sir
-            addition end say. Manners beloved affixed picture men ask.
-          </Text>
-        </View> */}
       </SafeAreaView>
     </ImageBackground>
   );
@@ -35,7 +27,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     width: '100%',
-    // marginTop: '10%',
+    marginTop: '6%',
     flex: 1,
   },
   textContainer: {

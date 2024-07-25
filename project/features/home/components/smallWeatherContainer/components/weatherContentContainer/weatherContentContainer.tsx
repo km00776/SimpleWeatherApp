@@ -24,7 +24,10 @@ const WeatherContentContainer: React.FC = () => {
 export default WeatherContentContainer;
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+    // backgroundColor: 'red',
+  },
   iconContainer: {
     marginRight: '10%',
   },
