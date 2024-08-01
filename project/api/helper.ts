@@ -3,6 +3,11 @@ import {ApiPresets as app} from './presets';
 
 const DEFAULT_TIMEOUT = 30000;
 
+const DEFAULT_HEADERS = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+  'Cache-Control': 'no-store',
+};
 const testConnection = async () => {
   try {
     let internetConnectionState = await NetInfo.fetch();
@@ -59,7 +64,12 @@ export const handleError = (
   };
 };
 
-const headers = () => {};
+const headers = () => {
+  return {
+    ...DEFAULT_HEADERS,
+    Authorization: process.env.ACCESS_KEY,
+  };
+};
 
 const apiFetch = async (fullUrl: any, method: string, body = null) => {
   let httpCode = null;

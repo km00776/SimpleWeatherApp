@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {ImageBackground} from 'react-native';
 import {LargeWeatherContainer} from './components/largeWeatherContainer/largeWeatherContainer';
 import {SafeAreaView, StyleSheet} from 'react-native';
@@ -6,10 +6,21 @@ import SmallWeatherContainer from './components/smallWeatherContainer/smallWeath
 import {Fonts} from '../../styles/Fonts';
 import {Size} from '../../styles/FontSize';
 import {Colors} from '../../styles/Colors';
-
+import { getCurrentWeather } from './actions/getCurrentWeather';
+// import {api}
 const BACKGROUND_IMG = require('/Users/macbook/Desktop/SimpleWeatherApp/project/assets/rain_background.png');
 
 export const Home: React.FC = () => {
+  console.log('API', process.env.API_KEY);
+
+  // useEffect(() => {
+  //     api.get
+  // }, [])
+useEffect(() => {
+  console.log('hi')
+    getCurrentWeather();
+},[]);
+
   return (
     <ImageBackground
       source={BACKGROUND_IMG}

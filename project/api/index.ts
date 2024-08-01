@@ -1,9 +1,5 @@
-module.exports = {
-  get presets() {
-    return require('./presets').ApiPresets;
-  },
+import { ApiPresets } from './presets';
+import * as helper from './helper';
 
-  get api() {
-    return require('./helper');
-  },
-};
+export const presets = ApiPresets;
+export const api = helper;
