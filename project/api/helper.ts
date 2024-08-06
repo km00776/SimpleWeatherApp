@@ -40,7 +40,6 @@ export const handleError = (
 ) => {
   const errorCodes = app.getErrorCodes();
   let handled = false;
-
   switch (httpCode) {
     case errorCodes.userError:
     case errorCodes.appTimeout:
@@ -67,7 +66,6 @@ export const handleError = (
 const headers = () => {
   return {
     ...DEFAULT_HEADERS,
-    Authorization: process.env.ACCESS_KEY,
   };
 };
 
@@ -82,9 +80,9 @@ const apiFetch = async (fullUrl: any, method: string, body = null) => {
         headers: headers(),
         body: body,
       });
+
       httpCode = response.status;
       const result = await response.json();
-
       if (isStatusOk(httpCode)) {
         return {
           success: true,
@@ -104,5 +102,5 @@ const apiFetch = async (fullUrl: any, method: string, body = null) => {
 };
 
 export const get = async (url: string) => {
-  return await apiFetch(app.getURL() + url, 'GET', null);
+  return await apiFetch(url, 'GET', null);
 };

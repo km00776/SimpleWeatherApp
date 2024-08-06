@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import {ImageBackground} from 'react-native';
 import {LargeWeatherContainer} from './components/largeWeatherContainer/largeWeatherContainer';
 import {SafeAreaView, StyleSheet} from 'react-native';
@@ -6,20 +6,25 @@ import SmallWeatherContainer from './components/smallWeatherContainer/smallWeath
 import {Fonts} from '../../styles/Fonts';
 import {Size} from '../../styles/FontSize';
 import {Colors} from '../../styles/Colors';
-import { getCurrentWeather } from './actions/getCurrentWeather';
+import {fetchWeatherData} from './actions/getCurrentWeather';
 // import {api}
 const BACKGROUND_IMG = require('/Users/macbook/Desktop/SimpleWeatherApp/project/assets/rain_background.png');
 
 export const Home: React.FC = () => {
-  console.log('API', process.env.API_KEY);
 
-  // useEffect(() => {
-  //     api.get
-  // }, [])
-useEffect(() => {
-  console.log('hi')
-    getCurrentWeather();
-},[]);
+  const [errored, setErrored] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [temperatureData, setTemperatureData] = useState([]);
+
+  useEffect(() => {
+    const res = fetchWeatherData('London');
+    const getWeatherData = async () => {
+      const data = await fetchWeatherData('London');
+      setTemperatureData(data);
+    }
+    getWeatherData();
+  }, []);
+
 
   return (
     <ImageBackground
