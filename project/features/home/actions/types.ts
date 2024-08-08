@@ -1,12 +1,4 @@
-// types.ts
-export interface WeatherDay {
-  datetime: string;
-  tempmax: number;
-  tempmin: number;
-  // Add other relevant fields for each day
-}
-
-export interface CurrentConditions {
+interface CurrentConditions {
   cloudcover: number;
   conditions: string;
   datetime: string;
@@ -39,11 +31,30 @@ export interface CurrentConditions {
   // Add other relevant fields for current conditions
 }
 
-export interface ApiContent {
+interface SuccessResponse {
+  content: {
+    address: string;
+    alerts: any[];
+    currentConditions: CurrentConditions;
+    days: number[];
+    description: string;
+    latitude: number;
+    longitude: number;
+    queryCost: number;
+    resolvedAddress: string;
+    stations: {[key: string]: any};
+    timezone: string;
+    tzoffset: number;
+  };
+  httpCode: number;
+  success: boolean;
+}
+
+export interface WeatherData {
   address: string;
   alerts: any[];
   currentConditions: CurrentConditions;
-  days: WeatherDay[];
+  days: any;
   description: string;
   latitude: number;
   longitude: number;
@@ -54,17 +65,10 @@ export interface ApiContent {
   tzoffset: number;
 }
 
-export interface SuccessResponse {
-  content: ApiContent;
-  httpCode: number;
-  success: boolean;
-}
-
 export interface ErrorResponse {
   success: false;
   httpCode: number | undefined;
   handledError: boolean;
   errors: null;
 }
-
 export type ApiResponse = SuccessResponse | ErrorResponse;

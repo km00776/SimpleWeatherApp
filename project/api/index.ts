@@ -1,4 +1,4 @@
-import { ApiPresets } from './presets';
+import {ApiPresets} from './presets';
 import * as helper from './helper';
 
 export const presets = ApiPresets;

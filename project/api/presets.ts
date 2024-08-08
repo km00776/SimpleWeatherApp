@@ -15,7 +15,7 @@ export class ApiPresets {
       userError: 401,
       internalServer: 500,
       appTimeout: 604,
-      noConnection: undefined,
+      noConnection: null,
     };
   }
 

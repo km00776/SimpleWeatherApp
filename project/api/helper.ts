@@ -8,6 +8,26 @@ const DEFAULT_HEADERS = {
   'Content-Type': 'application/json',
   'Cache-Control': 'no-store',
 };
+
+interface TimeoutResponse {
+  status: number;
+}
+
+interface ApiSuccessResponse {
+  success: true;
+  httpCode: number;
+  content: any; // You can further define this type based on the API response structure
+}
+
+interface ApiErrorResponse {
+  success: false;
+  httpCode: number | undefined;
+  handledError: boolean;
+  error: any; // You can further define this type based on the possible error structure
+}
+
+type ApiFetchResponse = ApiSuccessResponse | ApiErrorResponse;
+
 const testConnection = async () => {
   try {
     let internetConnectionState = await NetInfo.fetch();
@@ -21,10 +41,20 @@ const testConnection = async () => {
   }
 };
 
-const fetchTimeout = async (url, body, timeoutLength = DEFAULT_TIMEOUT) => {
+function isFetchResponse(
+  response: TimeoutResponse | Response,
+): response is Response {
+  return (response as Response).json !== undefined;
+}
+
+const fetchTimeout = async (
+  url: string,
+  body: RequestInit,
+  timeoutLength = DEFAULT_TIMEOUT,
+) => {
   return Promise.race([
     fetch(url, body),
-    new Promise(resolve => {
+    new Promise<TimeoutResponse>(resolve => {
       setTimeout(resolve, timeoutLength, {status: 604});
     }),
   ]);
@@ -34,12 +64,13 @@ const isStatusOk = (httpCode: number) => {
   return httpCode === 200;
 };
 
-export const handleError = (
-  httpCode: undefined | number = undefined,
+const handleError = (
+  httpCode: number | null = null,
   errors = null,
-) => {
+): ApiErrorResponse => {
   const errorCodes = app.getErrorCodes();
   let handled = false;
+
   switch (httpCode) {
     case errorCodes.userError:
     case errorCodes.appTimeout:
@@ -54,12 +85,11 @@ export const handleError = (
       handled = true;
       break;
   }
-
   return {
     success: false,
-    httpCode: httpCode,
+    httpCode: httpCode ?? undefined,
     handledError: handled,
-    errors: errors,
+    error: errors,
   };
 };
 
@@ -69,31 +99,42 @@ const headers = () => {
   };
 };
 
-const apiFetch = async (fullUrl: any, method: string, body = null) => {
-  let httpCode = null;
+const apiFetch = async (
+  fullUrl: string,
+  method: string,
+  body: any = null,
+): Promise<ApiFetchResponse> => {
+  let httpCode: number | null = null;
 
   try {
-    let isConnected = await testConnection();
+    const isConnected = await testConnection();
     if (isConnected) {
       const response = await fetchTimeout(fullUrl, {
         method: method,
         headers: headers(),
-        body: body,
+        body: body ? JSON.stringify(body) : null,
       });
 
-      httpCode = response.status;
-      const result = await response.json();
-      if (isStatusOk(httpCode)) {
-        return {
-          success: true,
-          httpCode: httpCode,
-          content: result,
-        };
+      if (isFetchResponse(response)) {
+        httpCode = response.status;
+        const result = await response.json();
+
+        if (isStatusOk(httpCode)) {
+          return {
+            success: true,
+            httpCode: httpCode,
+            content: result,
+          };
+        } else {
+          throw result;
+        }
       } else {
-        throw result;
+        // Handle TimeoutResponse
+        httpCode = response.status;
+        throw 'Request timed out';
       }
     } else {
-      httpCode = undefined;
+      httpCode = null;
       throw 'No internet connection';
     }
   } catch (error: any) {
@@ -101,6 +142,6 @@ const apiFetch = async (fullUrl: any, method: string, body = null) => {
   }
 };
 
-export const get = async (url: string) => {
+export const get = async (url: string): Promise<ApiFetchResponse> => {
   return await apiFetch(url, 'GET', null);
 };
