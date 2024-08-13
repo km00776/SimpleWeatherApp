@@ -4,9 +4,15 @@ import {BlurView} from '@react-native-community/blur';
 import RadialGradientBackground from './components/radialGradientBackground/radialGradientBackground';
 import WeatherContentContainer from './components/weatherContentContainer/weatherContentContainer';
 import {Colors} from '../../../../styles/Colors';
+import moment from 'moment';
+interface SmallWeatherContainerProps {
+  hourlyData: any[];
+}
 
 // import RadialBackground from './components/RadialGradientBackground/RadialBackground';
-const SmallWeatherContainer = () => {
+const SmallWeatherContainer: React.FC<SmallWeatherContainerProps> = ({
+  hourlyData,
+}) => {
   return (
     <View style={styles.container}>
       <BlurView style={styles.absolute} blurType="light" blurAmount={12}>
@@ -14,21 +20,43 @@ const SmallWeatherContainer = () => {
       </BlurView>
       <View style={styles.content}>
         <View style={styles.weatherContainer}>
-          <WeatherContentContainer />
-          <WeatherContentContainer />
-
-          <WeatherContentContainer />
-          <WeatherContentContainer />
-          <WeatherContentContainer />
+          {hourlyData?.slice(0, 5).map((hour, key) => (
+            <WeatherContentContainer
+              temp={Math.round(hour.temp)}
+              title={moment(hour.datetime, 'HH:mm:ss').format('hA')}
+              key={key}
+            />
+          ))}
         </View>
         <View style={styles.lineBreak} />
-        <View style={styles.weatherContainer2}>
-          <WeatherContentContainer />
-          <WeatherContentContainer />
-
-          <WeatherContentContainer />
-          <WeatherContentContainer />
-          <WeatherContentContainer />
+        <View style={styles.weatherContainer}>
+          {hourlyData?.slice(5, 10).map((hour, key) => (
+            <WeatherContentContainer
+              temp={Math.round(hour.temp)}
+              title={moment(hour.datetime, 'HH:mm:ss').format('hA')}
+              key={key}
+            />
+          ))}
+        </View>
+        <View style={styles.lineBreak} />
+        <View style={styles.weatherContainer}>
+          {hourlyData?.slice(10, 15).map((hour, key) => (
+            <WeatherContentContainer
+              temp={Math.round(hour.temp)}
+              title={moment(hour.datetime, 'HH:mm:ss').format('hA')}
+              key={key}
+            />
+          ))}
+        </View>
+        <View style={styles.lineBreak} />
+        <View style={styles.weatherContainer}>
+          {hourlyData?.slice(15, 20).map((hour, key) => (
+            <WeatherContentContainer
+              temp={Math.round(hour.temp)}
+              title={moment(hour.datetime, 'HH:mm:ss').format('hA')}
+              key={key}
+            />
+          ))}
         </View>
       </View>
     </View>
@@ -38,7 +66,7 @@ const SmallWeatherContainer = () => {
 const styles = StyleSheet.create({
   container: {
     width: '85%',
-    marginTop: '15%',
+    marginTop: '12%',
     borderRadius: 35,
     overflow: 'hidden',
   },

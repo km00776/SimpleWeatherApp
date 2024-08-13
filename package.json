@@ -12,8 +12,11 @@
   "dependencies": {
     "@react-native-community/blur": "^4.4.0",
     "@react-native-community/netinfo": "^11.3.2",
+    "@types/lodash": "^4.17.7",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
+    "lodash": "^4.17.21",
+    "moment": "^2.30.1",
     "path": "^0.12.7",
     "react": "18.2.0",
     "react-native": "0.74.2",

@@ -54,7 +54,7 @@ export interface WeatherData {
   address: string;
   alerts: any[];
   currentConditions: CurrentConditions;
-  days: any;
+  days: any[];
   description: string;
   latitude: number;
   longitude: number;

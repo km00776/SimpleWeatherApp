@@ -7,15 +7,23 @@ import {Colors} from '../../../../../../styles/Colors';
 
 import CloudIcon from '../../../../../../svgs/cloudIcon';
 
-const WeatherContentContainer: React.FC = () => {
+interface WeatherContentContainer {
+  temp: number;
+  title: string;
+}
+
+const WeatherContentContainer: React.FC<WeatherContentContainer> = ({
+  temp,
+  title,
+}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Now</Text>
+      <Text style={styles.text}>{title}</Text>
       <View style={styles.row}>
         <View style={styles.iconContainer}>
           <CloudIcon />
         </View>
-        <Text style={styles.text}>25°</Text>
+        <Text style={styles.text}>{temp}°</Text>
       </View>
     </View>
   );
@@ -26,13 +34,18 @@ export default WeatherContentContainer;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginRight: '2%',
+    alignItems: 'center',
   },
   iconContainer: {
-    marginRight: '10%',
+    marginTop: '11%',
+    marginRight: '6%',
+    alignItems: 'center',
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
     fontFamily: Fonts.regular,

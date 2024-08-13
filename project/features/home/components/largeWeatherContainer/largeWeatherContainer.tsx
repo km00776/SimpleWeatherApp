@@ -7,7 +7,19 @@ import {Size} from '../../../../styles/FontSize';
 import RainyIcon from '../../../../svgs/rainyIcon';
 import DegreeIcon from '../../../../svgs/degreeIcon';
 
-export const LargeWeatherContainer: React.FC = () => {
+interface LargeWeatherContainerProps {
+  temp: number;
+  conditions: string;
+  location: string;
+  date: string;
+}
+
+export const LargeWeatherContainer: React.FC<LargeWeatherContainerProps> = ({
+  temp,
+  conditions,
+  location,
+  date,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
@@ -19,16 +31,16 @@ export const LargeWeatherContainer: React.FC = () => {
           <View style={styles.rainyIcon}>
             <RainyIcon />
           </View>
-          <Text style={styles.degree}>13</Text>
+          <Text style={styles.degree}>{temp}</Text>
           <View style={styles.degreeIcon}>
             <DegreeIcon />
           </View>
         </View>
       </View>
       <View style={styles.column}>
-        <Text style={styles.weatherText}>Rainy</Text>
-        <Text style={styles.locationText}>California, Los Angeles</Text>
-        <Text style={styles.locationText}>21 Oct 2019</Text>
+        <Text style={styles.weatherText}>{conditions}</Text>
+        <Text style={styles.locationText}>{location}</Text>
+        <Text style={styles.locationText}>{date}</Text>
       </View>
     </View>
   );
@@ -56,6 +68,7 @@ const styles = StyleSheet.create({
   row2: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   iconContainer: {
     // marginTop: '1%',
@@ -81,7 +94,9 @@ const styles = StyleSheet.create({
     marginLeft: '8%',
   },
   rainyIcon: {
-    marginRight: '8%',
+    marginRight: '5%',
+    alignSelf: 'center',
+    height: '60%',
   },
   weatherText: {
     fontFamily: Fonts.semi_bold,
