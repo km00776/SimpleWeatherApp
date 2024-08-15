@@ -8,18 +8,29 @@ import {Size} from '../../styles/FontSize';
 import {Colors} from '../../styles/Colors';
 import {fetchWeatherData} from './actions/fetchWeatherData';
 import {WeatherData} from './actions/types';
-// import {api}
+import moment from 'moment';
+import isEmpty from 'lodash/isEmpty';
+import DropdownMenu from './components/largeWeatherContainer/components/dropDown/dropDown';
+
 const BACKGROUND_IMG = require('/Users/macbook/Desktop/SimpleWeatherApp/project/assets/rain_background.png');
 
 export const Home: React.FC = () => {
-  const [errored, setErrored] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [temperatureData, setTemperatureData] = useState<WeatherData | []>([]);
-  // we get 10 day data, just get the 5 day data + get the min and max.
+  const [errored, setErrored] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [temperatureData, setTemperatureData] = useState<WeatherData | null>(
+    null,
+  );
+  const [selectedDate, setSelectedDate] = useState<string>(
+    moment().format('DD MMM YYYY'),
+  );
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   useEffect(() => {
     const getWeatherData = async () => {
       setIsLoading(true);
       const data = await fetchWeatherData('London');
+
       if (data) {
         setTemperatureData(data);
         setErrored(false);
@@ -31,19 +42,26 @@ export const Home: React.FC = () => {
     getWeatherData();
   }, []);
 
-  console.log('temperatureData', temperatureData);
+  const onModalPress = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const onDatePress = (dateValue: string, dateIndex: number) => {
+    setSelectedDate(dateValue);
+    setSelectedIndex(dateIndex);
+  };
 
   // move to a component when this gets better
   if (isLoading) {
     return (
-      <View style={{justifyContent: 'center', flex: 1}}>
+      <View style={styles.loadingContainer}>
         <ActivityIndicator />
       </View>
     );
   }
   // move to a component as it might be required in the future when the app gets bigger
   if (errored) {
-    return <View style={{backgroundColor: 'red', flex: 1}} />;
+    return <View style={styles.errorContainer} />;
   }
 
   return (
@@ -52,8 +70,28 @@ export const Home: React.FC = () => {
       resizeMode={'cover'}
       style={styles.imageContainer}>
       <SafeAreaView style={styles.container}>
-        <LargeWeatherContainer />
-        <SmallWeatherContainer />
+        {!isEmpty(temperatureData) && (
+          <LargeWeatherContainer
+            temp={Math.round(temperatureData.days[selectedIndex].temp)}
+            location={temperatureData.address}
+            conditions={temperatureData.days[selectedIndex].conditions}
+            // passing this as children as it will avoid props drilling and no need to use context
+            children={
+              <DropdownMenu
+                dates={temperatureData.days.map(day =>
+                  moment(day.datetime).format('DD MMM YYYY'),
+                )}
+                onModalPress={onModalPress}
+                modalVisible={modalVisible}
+                onDatePress={onDatePress}
+                selectedDate={selectedDate}
+              />
+            }
+          />
+        )}
+        <SmallWeatherContainer
+          hourlyData={temperatureData?.days[selectedIndex].hours}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
@@ -82,6 +120,14 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   imageContainer: {
+    flex: 1,
+  },
+  loadingContainer: {
+    justifyContent: 'center',
+    flex: 1,
+  },
+  errorContainer: {
+    backgroundColor: 'red',
     flex: 1,
   },
 });

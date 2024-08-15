@@ -4,6 +4,7 @@ import {WeatherData} from './types';
 
 export const fetchWeatherData = async (query: string) => {
   const result = await api.get(weatherURL(query));
+  console.log('result', result);
   if (result.success) {
     const formattedData: WeatherData = result.content;
     return formattedData;

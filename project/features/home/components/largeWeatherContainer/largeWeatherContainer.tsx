@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
-import ArrowIcon from '../../../../svgs/arrowIcon';
 import {Fonts} from '../../../../styles/Fonts';
 import {Colors} from '../../../../styles/Colors';
 import {Size} from '../../../../styles/FontSize';
@@ -11,21 +10,18 @@ interface LargeWeatherContainerProps {
   temp: number;
   conditions: string;
   location: string;
-  date: string;
+  children: ReactNode;
 }
-
+// im aware we doing props drilling here, but keeping this here for now.
 export const LargeWeatherContainer: React.FC<LargeWeatherContainerProps> = ({
   temp,
   conditions,
   location,
-  date,
+  children,
 }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.row}>
-        <Text style={styles.date}>Today</Text>
-        <ArrowIcon />
-      </View>
+      <View style={styles.row}>{children}</View>
       <View style={styles.weatherContainer}>
         <View style={styles.row2}>
           <View style={styles.rainyIcon}>
@@ -40,7 +36,6 @@ export const LargeWeatherContainer: React.FC<LargeWeatherContainerProps> = ({
       <View style={styles.column}>
         <Text style={styles.weatherText}>{conditions}</Text>
         <Text style={styles.locationText}>{location}</Text>
-        <Text style={styles.locationText}>{date}</Text>
       </View>
     </View>
   );
@@ -105,7 +100,7 @@ const styles = StyleSheet.create({
   },
   column: {
     alignItems: 'center',
-    height: '30%',
+    height: '20%',
     justifyContent: 'space-between',
   },
   locationText: {

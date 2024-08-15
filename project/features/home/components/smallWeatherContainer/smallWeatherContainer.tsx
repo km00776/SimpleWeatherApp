@@ -5,6 +5,7 @@ import RadialGradientBackground from './components/radialGradientBackground/radi
 import WeatherContentContainer from './components/weatherContentContainer/weatherContentContainer';
 import {Colors} from '../../../../styles/Colors';
 import moment from 'moment';
+
 interface SmallWeatherContainerProps {
   hourlyData: any[];
 }
