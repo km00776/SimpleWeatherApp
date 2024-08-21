@@ -1,23 +1,25 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
-import RadialGradientBackground from './components/radialGradientBackground/radialGradientBackground';
 import WeatherContentContainer from './components/weatherContentContainer/weatherContentContainer';
 import {Colors} from '../../../../styles/Colors';
 import moment from 'moment';
 
 interface SmallWeatherContainerProps {
   hourlyData: any[];
+  colorArray: string[];
+  children: ReactNode;
 }
 
 // import RadialBackground from './components/RadialGradientBackground/RadialBackground';
 const SmallWeatherContainer: React.FC<SmallWeatherContainerProps> = ({
   hourlyData,
+  children,
 }) => {
   return (
     <View style={styles.container}>
       <BlurView style={styles.absolute} blurType="light" blurAmount={12}>
-        <RadialGradientBackground />
+        {children}
       </BlurView>
       <View style={styles.content}>
         <View style={styles.weatherContainer}>

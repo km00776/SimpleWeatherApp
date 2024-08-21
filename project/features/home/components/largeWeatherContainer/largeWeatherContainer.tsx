@@ -3,7 +3,6 @@ import {View, StyleSheet, Text} from 'react-native';
 import {Fonts} from '../../../../styles/Fonts';
 import {Colors} from '../../../../styles/Colors';
 import {Size} from '../../../../styles/FontSize';
-import RainyIcon from '../../../../svgs/rainyIcon';
 import DegreeIcon from '../../../../svgs/degreeIcon';
 
 interface LargeWeatherContainerProps {
@@ -11,6 +10,8 @@ interface LargeWeatherContainerProps {
   conditions: string;
   location: string;
   children: ReactNode;
+  colorArray: string[];
+  weatherIcon: ReactNode;
 }
 // im aware we doing props drilling here, but keeping this here for now.
 export const LargeWeatherContainer: React.FC<LargeWeatherContainerProps> = ({
@@ -18,24 +19,30 @@ export const LargeWeatherContainer: React.FC<LargeWeatherContainerProps> = ({
   conditions,
   location,
   children,
+  colorArray,
+  weatherIcon,
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.row}>{children}</View>
-      <View style={styles.weatherContainer}>
-        <View style={styles.row2}>
-          <View style={styles.rainyIcon}>
-            <RainyIcon />
-          </View>
-          <Text style={styles.degree}>{temp}</Text>
-          <View style={styles.degreeIcon}>
-            <DegreeIcon />
+    <View style={[styles.container, {backgroundColor: colorArray[1]}]}>
+      <View style={styles.content}>
+        <View style={styles.row}>{children}</View>
+        <View style={styles.weatherContainer}>
+          <View style={styles.row2}>
+            <View style={styles.rainyIcon}>{weatherIcon}</View>
+            <Text style={[styles.degree, {color: colorArray[0]}]}>{temp}</Text>
+            <View style={styles.degreeIcon}>
+              <DegreeIcon color={colorArray[0]} />
+            </View>
           </View>
         </View>
-      </View>
-      <View style={styles.column}>
-        <Text style={styles.weatherText}>{conditions}</Text>
-        <Text style={styles.locationText}>{location}</Text>
+        <View style={styles.column}>
+          <Text style={[styles.weatherText, {color: colorArray[0]}]}>
+            {conditions}
+          </Text>
+          <Text style={[styles.locationText, {color: colorArray[0]}]}>
+            {location}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -43,7 +50,7 @@ export const LargeWeatherContainer: React.FC<LargeWeatherContainerProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    height: '43.3%',
+    // height: '40.3%',
     width: '85%',
     backgroundColor: Colors.rainy,
     borderRadius: 35,
@@ -53,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '5%',
+    marginTop: '2%',
   },
 
   weatherContainer: {
@@ -65,9 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  iconContainer: {
-    // marginTop: '1%',
-  },
+
   date: {
     fontFamily: Fonts.medium,
     fontSize: Size.MD,
@@ -86,7 +91,6 @@ const styles = StyleSheet.create({
     color: Colors.rainyTxt,
     alignSelf: 'flex-start',
     marginTop: '8%',
-    marginLeft: '8%',
   },
   rainyIcon: {
     marginRight: '5%',
@@ -100,12 +104,21 @@ const styles = StyleSheet.create({
   },
   column: {
     alignItems: 'center',
-    height: '20%',
     justifyContent: 'space-between',
+    marginBottom: '20%',
   },
   locationText: {
     fontFamily: Fonts.medium,
     fontSize: Size.SM,
     color: Colors.rainyTxt,
+    marginBottom: '2%',
+  },
+  description: {
+    fontFamily: Fonts.medium,
+    fontSize: Size.SM,
+    color: Colors.rainyTxt,
+  },
+  content: {
+    marginTop: '2%',
   },
 });

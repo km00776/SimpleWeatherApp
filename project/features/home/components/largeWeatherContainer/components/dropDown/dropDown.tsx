@@ -19,6 +19,7 @@ interface DropdownMenuProps {
   modalVisible: boolean;
   onDatePress: (dateValue: string, dateIndex: number) => void;
   selectedDate: string;
+  color: string;
 }
 
 const DropdownMenu: React.FC<DropdownMenuProps> = ({
@@ -27,14 +28,14 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
   modalVisible,
   onDatePress,
   selectedDate,
+  color,
 }) => {
-  console.log('dates', dates);
   return (
     <View>
       <View style={styles.row}>
-        <Text style={styles.date}>{selectedDate}</Text>
+        <Text style={[styles.date, {color}]}>{selectedDate}</Text>
         <TouchableOpacity onPress={onModalPress}>
-          <ArrowIcon />
+          <ArrowIcon color={color} />
         </TouchableOpacity>
       </View>
 
@@ -70,13 +71,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: '5%',
   },
   date: {
     fontFamily: Fonts.medium,
     fontSize: Size.MD,
     color: Colors.rainyTxt,
-    marginRight: '3.5%',
+    marginRight: '5.5%',
+    marginTop: '3%',
   },
   container: {
     flex: 1,
