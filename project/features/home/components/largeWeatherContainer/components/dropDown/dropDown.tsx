@@ -45,7 +45,7 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({
         visible={modalVisible}
         onRequestClose={() => onModalPress()}>
         <View style={styles.container}>
-          <View style={styles.content}>
+          <View style={[styles.content, {backgroundColor: color}]}>
             <TouchableOpacity style={styles.doneBtn} onPress={onModalPress}>
               <Text style={styles.doneTxt}>Done</Text>
             </TouchableOpacity>
@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   content: {
-    backgroundColor: 'white',
     paddingBottom: 40,
   },
   doneBtn: {
@@ -92,8 +91,9 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   doneTxt: {
-    fontSize: 18,
-    color: 'blue',
+    fontSize: Size.SM,
+    color: Colors.white,
+    fontFamily: Fonts.medium,
   },
 });
 
